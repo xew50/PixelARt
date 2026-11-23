@@ -1,0 +1,22 @@
+# Render Blueprint: деплой PixelFace AI в один клик
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: pixelface
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: APP_NAME
+        value: PixelFace AI
+      - key: TZ
+        value: Europe/Moscow
+      # обязателен для публичного сайта: без него любой сможет слать фото
+      - key: ACCESS_KEY
+        sync: false

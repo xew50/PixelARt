@@ -1,0 +1,16 @@
+{
+  "name": "neuroscan-screamer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Шуточный сайт-скример: нейро-скан, испуг и фото реакции в Telegram",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs",
+    "telegram:check": "node tools/check-telegram.mjs",
+    "assets": "python tools/make_assets.py"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

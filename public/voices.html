@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05060a">
+<meta name="robots" content="noindex, nofollow">
+<title>Выбор крика · НЕЙРО-СКАН</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<style>
+  :root { --bg:#05060a; --ink:#d9dde6; --dim:#79808f; --red:#e11d2e; --line:rgba(255,255,255,.1);
+          --mono: ui-monospace, "Cascadia Mono", Consolas, monospace; }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; padding:32px 20px 60px; background:radial-gradient(120% 80% at 50% -10%, #10131d, #05060a 60%, #030407);
+         color:var(--ink); font-family:"Segoe UI", system-ui, sans-serif; }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  h1 { font: 900 clamp(22px, 4vw, 34px)/1.05 var(--mono); letter-spacing:-0.02em; text-transform:uppercase; margin:0 0 10px; }
+  .lead { color:var(--dim); font-size:14px; line-height:1.6; margin:0 0 28px; max-width:56ch; }
+  .voice { border:1px solid var(--line); padding:18px; margin-bottom:14px; background:rgba(255,255,255,.02); }
+  .voice header { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:12px; }
+  .voice b { font: 700 15px/1 var(--mono); letter-spacing:.06em; }
+  .voice span { font: 10px/1.4 var(--mono); color:var(--dim); letter-spacing:.12em; text-transform:uppercase; text-align:right; }
+  audio { width:100%; height:38px; filter: invert(.9) hue-rotate(180deg); }
+  .pick { display:inline-block; margin-top:12px; padding:10px 16px; border:1px solid rgba(225,29,46,.5);
+          color:#ff8b98; font:700 11px/1 var(--mono); letter-spacing:.12em; text-decoration:none; text-transform:uppercase; }
+  .pick:hover { background:rgba(225,29,46,.12); }
+  .back { display:inline-block; margin-top:20px; color:var(--dim); font:11px/1 var(--mono); letter-spacing:.12em; text-decoration:none; }
+  .back:hover { color:var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Какой крик страшнее?</h1>
+  <p class="lead">
+    Три варианта синтеза. Послушай и выбери: ссылка «поставить» открывает сайт
+    с нужным голосом (параметр <code>?voice=</code>). Выбор запоминается только
+    в ссылке, по умолчанию — первый.
+  </p>
+
+  <div class="voice">
+    <header><b>01 · ЖЕНСКИЙ</b><span>высокий, пронзительный</span></header>
+    <audio controls preload="metadata" src="assets/scream-1.wav"></audio>
+    <a class="pick" href="./?voice=1">Поставить этот</a>
+  </div>
+
+  <div class="voice">
+    <header><b>02 · МУЖСКОЙ</b><span>низкий рёв, хрип</span></header>
+    <audio controls preload="metadata" src="assets/scream-2.wav"></audio>
+    <a class="pick" href="./?voice=2">Поставить этот</a>
+  </div>
+
+  <div class="voice">
+    <header><b>03 · ЧУДОВИЩЕ</b><span>два голоса, октава вниз</span></header>
+    <audio controls preload="metadata" src="assets/scream-3.wav"></audio>
+    <a class="pick" href="./?voice=3">Поставить этот</a>
+  </div>
+
+  <a class="back" href="./">← на главную</a>
+</div>
+</body>
+</html>

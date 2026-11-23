@@ -1,0 +1,17 @@
+{
+  "name": "PixelFace AI — аватарка из фото",
+  "short_name": "PixelFace",
+  "description": "Нейросеть делает аватарку из твоего фото",
+  "lang": "ru",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#fbfaff",
+  "theme_color": "#f6f3ff",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}
